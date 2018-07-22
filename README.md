@@ -1,4 +1,4 @@
-# VigenerePy - A simple Python 3.x class which implements the Vigenere cipher
+# VigenerePy - A Python 3.x class to implement the Vigenere cipher
 
 The Vigenere cipher is a simple polyalphabetic substitution cipher
 meant to secure messages with a password or keyword. According to *Principles
@@ -23,7 +23,7 @@ still more letters left in the message, simply wrap around back to the first
 letter of the keyword.
 
 
-This project is a simple implementation of the Vigenere Cipher as a Python 3.x
+This project is an implementation of the Vigenere Cipher as a Python 3.x
 class. It is meant to be easy to use, read, and modify. Valid passwords must
 be at least one letter long and contain only letters. Numbers and symbols are
 ignored. Also, passwords are case insensitive. Symbols and numbers
