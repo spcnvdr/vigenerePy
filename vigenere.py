@@ -1,5 +1,5 @@
 # Title:       vigenere.py
-# Version:     1.0.2
+# Version:     1.0.3
 # Description: A simple class that implements the Vigenere cipher.
 # Note: Valid Passwords MUST be at least one letter long. Otherwise the class
 # will throw an error. Numbers and symbols are not valid characters in
@@ -105,7 +105,7 @@ class Vigenere:
             j += 1
 
 
-        return(newMes)
+        return(self.formatStr(newMes))
 
     ## Encrypts a message with the Vigenere cipher
     #  @param message the string to decrypt

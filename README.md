@@ -17,11 +17,10 @@ To use the Vignere square, take the letter to be enciphered/deciphered and
 find the row beginning with that letter. Next, take the letter of the keyword
 to use and find it in the first row. Now, find the place where the row and
 column intersect, and that letter is the enciphered or deciphered letter.
-Now using the next letter of the keyword to encipher/decipher the next letter
-of the message. If you reach the last letter of the keyword, but there are
+Now, use the next letter of the keyword to encipher/decipher the next letter
+of the message. If you reach the last letter of the keyword but there are
 still more letters left in the message, simply wrap around back to the first
 letter of the keyword.
-
 
 
 This project is a simple implementation of the Vigenere Cipher as a Python 3.x
@@ -52,8 +51,8 @@ ignored. Also, passwords are case insensitive. Symbols and numbers
 
 Which outputs:
 
-    Ciphertext:  WEDDKKFUAD
-    Plaintext:  HELLOWORLD
+    Ciphertext:  WEDDK KFUAD
+    Plaintext:   HELLO WORLD
 
 
 **Contributing**
