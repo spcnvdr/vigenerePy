@@ -1,5 +1,5 @@
 # Title:       vigenere.py
-# Version:     1.0.0
+# Version:     1.0.1
 # Description: A simple class that implements the Vigenere cipher.
 # Note: Valid Passwords MUST be at least one letter long. Otherwise the class
 # will throw an error. Numbers and symbols are not valid characters in
@@ -30,7 +30,7 @@ class Vigenere:
             return None
 
         charKey = ord(char) - offset
-        return charKey
+        return(charKey)
 
 
     ## Removes all characters not found in the alphabet from an input string and
@@ -44,7 +44,21 @@ class Vigenere:
             if char.isalpha():
                 newText += char.upper()
 
-        return newText
+        return(newText)
+
+
+    ## Formats a string into blocks of five characters
+    # @param string the string to modify
+    # @returns a new string grouping characters into sets of 5 characters
+    #
+    def formatStr(self, string):
+        new = ""
+        for i in range(len(string)):
+            if(i != 0 and i % 5 == 0):
+                new += " "
+            new += string[i]
+
+        return(new)
 
 
     ## Encrypts upper- and lowercase characters by shifting them according to a key.
@@ -72,7 +86,7 @@ class Vigenere:
         elif offset < 0:
             offset = offset + LETTERS
 
-        return chr(base + offset)
+        return(chr(base + offset))
 
 
     ## Decrypts a message with the Vigenere cipher
@@ -91,7 +105,7 @@ class Vigenere:
             j += 1
 
 
-        return newMes
+        return(newMes)
 
     ## Encrypts a message with the Vigenere cipher
     #  @param message the string to decrypt
@@ -108,7 +122,7 @@ class Vigenere:
             newMes += self.crypt(char, tempKey, "E")
             j += 1
 
-        return newMes
+        return(formatStr(newMes))
 
 
     ## Sets a new password to be used for encryption/decryption
