@@ -1,5 +1,5 @@
 # Title:       vigenere.py
-# Version:     1.0.1
+# Version:     1.0.2
 # Description: A simple class that implements the Vigenere cipher.
 # Note: Valid Passwords MUST be at least one letter long. Otherwise the class
 # will throw an error. Numbers and symbols are not valid characters in
