@@ -122,7 +122,7 @@ class Vigenere:
             newMes += self.crypt(char, tempKey, "E")
             j += 1
 
-        return(formatStr(newMes))
+        return(self.formatStr(newMes))
 
 
     ## Sets a new password to be used for encryption/decryption
