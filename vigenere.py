@@ -1,5 +1,5 @@
 # Title:       vigenere.py
-# Version:     1.0.3
+# Version:     1.0.4
 # Description: A simple class that implements the Vigenere cipher.
 # Note: Valid Passwords MUST be at least one letter long. Otherwise the class
 # will throw an error. Numbers and symbols are not valid characters in
@@ -14,27 +14,23 @@ class Vigenere:
         self.setPassword(password)
 
 
-    ## Takes a letter from the user and turns it into a number between 0 and 25 to use
-    #  as a key for encryption or decryption
+    ## Takes a letter from the user and turns it into a number between
+    #  0 and 25 to use as a key for encryption or decryption
     #  @param char a character to use as a key
-    #  @return charKey an integer between 0 and 25
+    #  @return an integer between 0 and 25
     #
-    def ChToKey(self, char):
-        if char.islower():
-            char = char.upper()
-
-        if char >= "A" and char <= "Z":
-            offset = ord("A")
+    def chToKey(self, char):
+        if char.isupper():
+            return(ord(char) - ord("A"))
+        elif char.islower():
+            return(ord(char) - ord('a'))
         else:
             # Not a letter
             return None
 
-        charKey = ord(char) - offset
-        return(charKey)
 
-
-    ## Removes all characters not found in the alphabet from an input string and
-    #  converts all characters  to uppercase.
+    ## Removes all characters not found in the alphabet from an input
+    #  string and converts all characters  to uppercase.
     #  @param text the string to be converted
     #  @return newText The new all uppercase, alpha only string.
     #
@@ -61,68 +57,72 @@ class Vigenere:
         return(new)
 
 
-    ## Encrypts upper- and lowercase characters by shifting them according to a key.
-    #  @param ch the letter to be encrypted
-    #  @param key the encryption key
-    #  @param mode a character that determines the operation E for encryption, and
-    #   D for decryption
-    #  @return the encrypted letter
+    ## Encrypts/decrypts upper- and lowercase characters using the
+    #  Caesar cipher algorithm
+    #  @param ch the letter to be encrypted/decrypted
+    #  @param key a integer representing the key to use as a shift value
+    #  @param mode a character that determines the operation
+    #  E for encryption, and D for decryption
+    #  @return the encrypted/decrypted letter
     #
     def crypt(self, ch, key, mode):
-        LETTERS = 26   #Number of letters in the Roman alphabet
 
-        if ch >= "A" and ch <= "Z":
-            base = ord("A")
+        if ch.isupper():
+            offset = ord("A")
+        elif ch.islower():
+            offset = ord('a')
         else:
-            return ch   # Catch-all: Not an uppercase letter
+            return(ch)
+
+        enc = ""
 
         if mode.upper() == "E":
-            offset = ord(ch) - base + key
+            enc = chr((ord(ch) + key - offset) % 26 + offset)
         elif mode.upper() == "D":
-            offset = ord(ch) - base - key
+            enc = chr((ord(ch) - key - offset) % 26 + offset)
+        else:
+            return(ch)
 
-        if offset >= LETTERS:
-            offset = offset - LETTERS
-        elif offset < 0:
-            offset = offset + LETTERS
-
-        return(chr(base + offset))
+        return(enc)
 
 
     ## Decrypts a message with the Vigenere cipher
-    #  @param message the string to decrypt
+    #  @param string the string to decrypt
     #  @return the decrypted string
     #
-    def decrypt(self, message):
-        tempMes = self.convertStr(message)
-        newMes = ""
+    def decrypt(self, string):
+        new = ""
         tempKey = 0
         j = 0
 
-        for char in tempMes:
-            tempKey = self.ChToKey(self.vigPass[j % len(self.vigPass)])
-            newMes += self.crypt(char, tempKey, "D")
+        for char in string:
+            if(not char.isalpha()):
+                new += char
+                continue
+
+            tempKey = self.chToKey(self.vigPass[j % len(self.vigPass)])
+            new += self.crypt(char, tempKey, "D")
             j += 1
 
 
-        return(self.formatStr(newMes))
+        return(new)
 
     ## Encrypts a message with the Vigenere cipher
-    #  @param message the string to decrypt
+    #  @param string the string to encrypt
     #  @return the encrypted string
     #
-    def encrypt(self, message):
-        tempMes = self.convertStr(message)
-        newMes = ""
+    def encrypt(self, string):
+        convString = self.convertStr(string)
+        new = ""
         tempKey = 0
         j = 0
 
-        for char in tempMes:
-            tempKey = self.ChToKey(self.vigPass[j % len(self.vigPass)])
-            newMes += self.crypt(char, tempKey, "E")
+        for char in convString:
+            tempKey = self.chToKey(self.vigPass[j % len(self.vigPass)])
+            new += self.crypt(char, tempKey, "E")
             j += 1
 
-        return(self.formatStr(newMes))
+        return(self.formatStr(new))
 
 
     ## Sets a new password to be used for encryption/decryption
@@ -134,4 +134,3 @@ class Vigenere:
             raise IndexError("Error: Bad password. Password must contain only letters")
         else:
             self.vigPass = tmp
-            #print(self.vigPass)
